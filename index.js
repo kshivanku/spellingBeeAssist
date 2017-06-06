@@ -14,9 +14,9 @@ restService.post('/hook', function(req, res){
   });
 
   function welcomeUser(app){
-    app.ask("Hi! this is spelling bee, do you want to play?", ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!']);
     var parameters = {};
     app.setContext("wakeUpGame", 3, parameters);
+    app.ask("Hi! this is spelling bee, do you want to play?", ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!']);
   }
 
   function gameAction(app){
