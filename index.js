@@ -73,6 +73,9 @@ restService.post('/hook', function(req, res) {
     }, function(err, response, body){
       body = JSON.parse(body);
       var usage = body.text;
+      console.log("response body: ");
+      console.log(body);
+      console.log("usage: " + usage);
       app.tell("One of the usage of the word is, " + usage);
     });
   }
