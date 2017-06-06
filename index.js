@@ -32,7 +32,8 @@ restService.post('/hook', function(req, res) {
     }, function(err, response, body) {
       body = JSON.parse(body);
       var word = body.word;
-      word.replace(/\s/g,'');
+      word.replace(/\s/g,''); //removes spaces if any in between
+      app.setContext("wordgiven", 2);
       app.tell("Awesome! Lets start. Spell the word " + word);
     });
   }
