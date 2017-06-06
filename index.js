@@ -33,14 +33,49 @@ restService.post('/hook', function(req, res) {
       body = JSON.parse(body);
       var word = body.word;
       word.replace(/\s/g,''); //removes spaces if any in between
-      app.setContext("wordgiven", 2);
+      var parameters = {}
+      parameters["word"] = word;
+      app.setContext("wordgiven", 5);
       app.tell("Awesome! Lets start. Spell the word " + word);
+    });
+  }
+
+  function askingDetail(app){
+    var detail_type = app.getArgument("detail_type");
+    if(detail_type = "definition"){
+      sendDefinition(app);
+    }
+    else if(detail_type = "usage"){
+      sendUsage(app);
+    }
+  }
+
+  function sendDefinition(app){
+    var word = app.getContextArgument("wordgiven", "word");
+    request.get({
+      url: "http://api.wordnik.com:80/v4/word.json/" + word + "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+    }, function(err, response, body){
+      body = JSON.parse(body);
+      var definition = body[0].text;
+      app.tell("One of the meanings of the word is, " + definition);
+    });
+  }
+
+  function sendUsage(app){
+    var word = app.getContextArgument("wordgiven", "word");
+    request.get({
+      url: "http://api.wordnik.com:80/v4/word.json/" + word+ "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+    }, function(err, response, body){
+      body = JSON.parse(body);
+      var usage = body.text;
+      app.tell("One of the usage of the word is, " + usage);
     });
   }
 
   const actionMap = new Map();
   actionMap.set('input.welcome', welcomeUser);
   actionMap.set('game.action', gameAction);
+  actionMap.set('asking.detail', askingDetail);
   app.handleRequest(actionMap);
 });
 
