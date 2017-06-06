@@ -1,8 +1,9 @@
 const express = require('express');
-// const body-parser = require('body-parser');
+const body-parser = require('body-parser');
 const ApiAiApp = require('actions-on-google').ApiAiApp;
 
 const restService = express();
+restService.use(bodyParser.json());
 
 restService.post('/hook', function(req, res){
   console.log("request: ");
