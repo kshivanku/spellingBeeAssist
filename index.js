@@ -21,10 +21,8 @@ restService.post('/hook', function(req, res){
   function gameAction(app){
     var userResponse = app.getArgument("confirm_command");
     if(userResponse == "positive") {
-      app.tell("Awesome! Lets start.");
-      // var word = genearteRandomWord();
-      var word = "The Word";
-      app.tell(word);
+      var word = generateRandomWord();
+      app.tell("Awesome! Lets start. Spell the word ");
     }
     else {
       app.tell("Too bad, see you later!");
@@ -36,6 +34,15 @@ restService.post('/hook', function(req, res){
   actionMap.set('game.action', gameAction);
   app.handleRequest(actionMap);
 });
+
+function generateRandomWord(){
+  request.get({
+    url: "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=-1&maxDictionaryCount=-1&minLength=15&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+  }, function (err, response, body){
+    body = JSON.parse(body);
+    console.log(body);
+  })
+}
 
 restService.listen((process.env.PORT || 5000), function() {
   console.log("Server listening");
