@@ -42,10 +42,11 @@ restService.post('/hook', function(req, res) {
 
   function askingDetail(app){
     var detail_type = app.getArgument("detail_type");
-    if(detail_type = "definition"){
+    console.log("detail_type: " + detail_type);
+    if(detail_type == "definition"){
       sendDefinition(app);
     }
-    else if(detail_type = "usage"){
+    else if(detail_type == "usage"){
       sendUsage(app);
     }
   }
