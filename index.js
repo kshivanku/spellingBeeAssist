@@ -35,7 +35,7 @@ restService.post('/hook', function(req, res) {
       word.replace(/\s/g,''); //removes spaces if any in between
       var parameters = {}
       parameters["word"] = word;
-      app.setContext("wordgiven", 5);
+      app.setContext("wordgiven", 5, parameters);
       app.tell("Awesome! Lets start. Spell the word " + word);
     });
   }
