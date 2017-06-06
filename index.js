@@ -20,12 +20,11 @@ restService.post('/hook', function(req, res) {
   function gameAction(app) {
     var userResponse = app.getArgument("confirm_command");
     if (userResponse == "positive") {
-      var word = "";
-      do {
+      var word = " ";
+      while (/\s/.test(word)) {
         word = generateRandomWord();
       }
-      while (/\s/.test(word));
-      console.log("word returned" + word);
+      console.log("word returned " + word);
       app.tell("Awesome! Lets start. Spell the word " + word);
     } else {
       app.tell("Too bad, see you later!");
