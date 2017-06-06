@@ -24,6 +24,7 @@ restService.post('/hook', function(req, res) {
       while (/\s/.test(word)) {
         word = generateRandomWord();
         if(!(/\s/.test(word))){
+          console.log("Received word: " + word);
           app.tell("Awesome! Lets start. Spell the word " + word);
         }
       }
