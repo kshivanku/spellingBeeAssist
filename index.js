@@ -20,17 +20,21 @@ restService.post('/hook', function(req, res) {
   function gameAction(app) {
     var userResponse = app.getArgument("confirm_command");
     if (userResponse == "positive") {
-      var word = undefined;
-      while (/\s/.test(word) || word == undefined) {
-        word = generateRandomWord();
-        if(!(/\s/.test(word)) && word != undefined){
-          console.log("Received word: " + word);
-          app.tell("Awesome! Lets start. Spell the word " + word);
-        }
-      }
+      sendRandomWord(app);
     } else {
       app.tell("Too bad, see you later!");
     }
+  }
+
+  function sendRandomWord(app) {
+    request.get({
+      url: "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=-1&maxDictionaryCount=-1&minLength=15&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+    }, function(err, response, body) {
+      body = JSON.parse(body);
+      var word = body.word;
+      word.replace(/\s/g,'');
+      app.tell("Awesome! Lets start. Spell the word " + word);
+    });
   }
 
   const actionMap = new Map();
@@ -38,16 +42,6 @@ restService.post('/hook', function(req, res) {
   actionMap.set('game.action', gameAction);
   app.handleRequest(actionMap);
 });
-
-function generateRandomWord() {
-  request.get({
-    url: "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=-1&maxDictionaryCount=-1&minLength=15&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
-  }, function(err, response, body) {
-    body = JSON.parse(body);
-    console.log(body.word);
-    return body.word;
-  });
-}
 
 restService.listen((process.env.PORT || 5000), function() {
   console.log("Server listening");
