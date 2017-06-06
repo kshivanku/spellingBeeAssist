@@ -11,6 +11,7 @@
   "dependencies": {
     "actions-on-google": "^1.1.1",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "request": "^2.81.0"
   }
 }
