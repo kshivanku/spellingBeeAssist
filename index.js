@@ -14,9 +14,7 @@ restService.post('/hook', function(req, res){
   });
 
   function welcomeUser(app){
-    console.log("In welcome function");
-    const parameters = {};
-    app.setContext("wakeUpGame", 3, parameters);
+    app.setContext("wakeUpGame", 3);
     app.ask("Hi! this is spelling bee from the console, do you want to play?", ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!']);
   }
 
