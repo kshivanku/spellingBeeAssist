@@ -14,7 +14,13 @@ restService.post('/hook', function(req, res){
   });
 
   function gameAction(app){
-    app.tell("this is a response from the webhook");
+    var userResponse = app.getArgument("confirm_command");
+    if(userResponse == "positive") {
+      app.tell("Awesome! Lets start.");
+    }
+    else {
+      app.tell("Too bad, see you later!");
+    }
   }
 
   const actionMap = new Map();
