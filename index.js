@@ -21,9 +21,9 @@ restService.post('/hook', function(req, res) {
     var userResponse = app.getArgument("confirm_command");
     if (userResponse == "positive") {
       var word = " ";
-      while (/\s/.test(word)) {
+      // while (/\s/.test(word)) {
         word = generateRandomWord();
-      }
+      // }
       console.log("word returned " + word);
       app.tell("Awesome! Lets start. Spell the word " + word);
     } else {
