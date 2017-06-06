@@ -1,13 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ApiAiApp = require('actions-on-google').ApiAiApp;
+const request = require('request');
 
 const restService = express();
 restService.use(bodyParser.json());
 
 restService.post('/hook', function(req, res){
-  console.log("request: ");
-  console.log(req);
   const app = new ApiAiApp({
     request: req,
     response: res
@@ -36,6 +35,7 @@ restService.post('/hook', function(req, res){
 });
 
 function generateRandomWord(){
+  console.log("in generate random word");
   request.get({
     url: "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=-1&maxDictionaryCount=-1&minLength=15&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
   }, function (err, response, body){
