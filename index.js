@@ -52,10 +52,12 @@ restService.post('/hook', function(req, res) {
 
   function sendDefinition(app){
     var word = app.getContextArgument("wordgiven", "word");
+    console.log("In definition: " + word);
     request.get({
       url: "http://api.wordnik.com:80/v4/word.json/" + word + "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
     }, function(err, response, body){
       body = JSON.parse(body);
+      console.log(body);
       var definition = body[0].text;
       app.tell("One of the meanings of the word is, " + definition);
     });
