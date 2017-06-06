@@ -51,6 +51,7 @@ restService.post('/hook', function(req, res) {
   }
 
   function sendDefinition(app){
+    console.log("inside define function");
     var word = app.getContextArgument("wordgiven", "word");
     console.log("In definition: " + word.value);
     request.get({
@@ -64,9 +65,10 @@ restService.post('/hook', function(req, res) {
   }
 
   function sendUsage(app){
+    console.log("inside usage function");
     var word = app.getContextArgument("wordgiven", "word");
     request.get({
-      url: "http://api.wordnik.com:80/v4/word.json/" + word.value+ "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+      url: "http://api.wordnik.com:80/v4/word.json/" + word.value + "/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
     }, function(err, response, body){
       body = JSON.parse(body);
       var usage = body.text;
