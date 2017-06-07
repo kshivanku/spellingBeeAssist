@@ -7,6 +7,7 @@ const restService = express();
 restService.use(bodyParser.json());
 
 const NOREPLY = ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!'];
+var attempts = 0;
 
 restService.post('/hook', function(req, res) {
   const app = new ApiAiApp({
@@ -101,11 +102,19 @@ restService.post('/hook', function(req, res) {
       app.ask("Congratulations! Your spelling is correct. Would you like to try one more word?", NOREPLY);
     }
     else {
-      var spelling = "";
-      for(var i = 0 ; i < word.value.length ; i++){
-        spelling += word.value[i] + ". "
+      if(attempts < 1){
+        attempts ++;
+        app.setContext("readytospell", 1);
+        app.ask("Oops! Your spelling is incorrect. Try once more");
       }
-      app.ask("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value + ". Would you like to try another word?", NOREPLY);
+      else {
+        attempts = 0;
+        var spelling = "";
+        for(var i = 0 ; i < word.value.length ; i++){
+          spelling += word.value[i] + ". "
+        }
+        app.ask("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value + ". Would you like to try another word?", NOREPLY);
+      }
     }
   }
 
