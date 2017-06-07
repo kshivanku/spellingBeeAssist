@@ -6,6 +6,8 @@ const request = require('request');
 const restService = express();
 restService.use(bodyParser.json());
 
+const NOREPLY = ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!'];
+
 restService.post('/hook', function(req, res) {
   const app = new ApiAiApp({
     request: req,
@@ -14,7 +16,7 @@ restService.post('/hook', function(req, res) {
 
   function welcomeUser(app) {
     app.setContext("wakeUpGame", 2);
-    app.ask("Hi! this is spelling bee, do you want to play?", ['do you want to play?', 'Say yes if you want to play', 'We can stop here. See you soon!']);
+    app.ask("Hi! this is spelling bee, do you want to play?", NOREPLY);
   }
 
   function gameAction(app) {
@@ -90,18 +92,19 @@ restService.post('/hook', function(req, res) {
   }
 
   function checkAnswer(app){
+    app.setContext("wakeUpGame", 1);
     var userAnswer = app.getArgument("userAnswer");
     var word = app.getContextArgument("wordgiven", "word");
     var wordAlpha = word.value.replace(/[\s\-]/g,''); //removes spaces if any in between
     if(userAnswer == wordAlpha) {
-      app.tell("Congratulations! Your spelling is correct");
+      app.ask("Congratulations! Your spelling is correct. Would you like to try one more word?", NOREPLY);
     }
     else {
       var spelling = "";
       for(var i = 0 ; i < word.value.length ; i++){
         spelling += word.value[i] + ". "
       }
-      app.tell("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value);
+      app.ask("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value + ". Would you like to try another word?", NOREPLY);
     }
   }
 
