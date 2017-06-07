@@ -119,6 +119,10 @@ restService.post('/hook', function(req, res) {
     }
   }
 
+  function quitGame(app){
+    app.tell("Ok, I'll take your leave. Come back later for more interesting words!");
+  }
+
   const actionMap = new Map();
   actionMap.set('input.welcome', welcomeUser);
   actionMap.set('game.action', gameAction);
@@ -126,6 +130,7 @@ restService.post('/hook', function(req, res) {
   actionMap.set('repeat.word', repeatWord);
   actionMap.set('ready.tospell', readytospell);
   actionMap.set('answer.given', checkAnswer);
+  actionMap.set('quit.game', quitGame);
   app.handleRequest(actionMap);
 });
 
