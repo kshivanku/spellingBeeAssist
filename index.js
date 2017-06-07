@@ -90,12 +90,24 @@ restService.post('/hook', function(req, res) {
     app.tell("ok, start spelling");
   }
 
+  function checkAnswer(app){
+    var userAnswer = app.getArgument("userAnswer");
+    var word = app.getContextArgument("wordgiven", "word");
+    if(userAnswer == word.value) {
+      app.tell("Congratulations! Your spelling is correct");
+    }
+    else {
+      app.tell("Oops! Your spelling is incorrect");
+    }
+  }
+
   const actionMap = new Map();
   actionMap.set('input.welcome', welcomeUser);
   actionMap.set('game.action', gameAction);
   actionMap.set('asking.detail', askingDetail);
   actionMap.set('repeat.word', repeatWord);
   actionMap.set('ready.tospell', readytospell);
+  actionMap.set('answer.given', checkAnswer);
   app.handleRequest(actionMap);
 });
 
