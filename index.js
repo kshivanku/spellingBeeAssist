@@ -37,7 +37,7 @@ restService.post('/hook', function(req, res) {
       var parameters = {}
       parameters["word"] = word;
       app.setContext("wordgiven", 10, parameters);
-      app.tell("Awesome! Lets start. Spell the word " + word + ". You can ask me the meaning of the word or usage in a sentence. Say, I am ready to spell, whenever you are ready to give your answer.");
+      app.tell("Awesome! Lets start. Spell the word " + word + ". You can ask me the meaning of the word or usage in a sentence. Say 'I am ready to spell', whenever you are ready to give your answer.");
     });
   }
 
@@ -62,7 +62,7 @@ restService.post('/hook', function(req, res) {
       body = JSON.parse(body);
       console.log(body);
       var definition = body[0].text;
-      app.tell("The meanings of the word is. " + definition + ". Say, I am ready to spell, whenever you are ready to give your answer.");
+      app.tell("The meanings of the word is. " + definition + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
     });
   }
 
@@ -77,13 +77,13 @@ restService.post('/hook', function(req, res) {
       console.log("response body: ");
       console.log(body);
       console.log("usage: " + usage);
-      app.tell("Here's how you can use it in a sentence. " + usage + ". Say, I am ready to spell, whenever you are ready to give your answer.");
+      app.tell("Here's how you can use it in a sentence. " + usage + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
     });
   }
 
   function repeatWord(app){
     var word = app.getContextArgument("wordgiven", "word");
-    app.tell("The word is, " + word.value + ". Say, I am ready to spell, whenever you are ready to give your answer.");
+    app.tell("The word is, " + word.value + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
   }
 
   function readytospell(app){
