@@ -37,7 +37,7 @@ restService.post('/hook', function(req, res) {
       var parameters = {}
       parameters["word"] = word;
       app.setContext("wordgiven", 10, parameters);
-      app.tell("Awesome! Lets start. Spell the word " + word + ". You can ask me the meaning of the word or usage in a sentence. Say 'I am ready to spell', whenever you are ready to give your answer.");
+      app.tell("Awesome! Lets start. Spell the word, '" + word + "'. You can ask me the meaning of the word or usage in a sentence. Say 'I am ready to spell', whenever you are ready to give your answer.");
     });
   }
 
