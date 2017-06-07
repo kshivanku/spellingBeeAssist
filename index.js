@@ -87,7 +87,7 @@ restService.post('/hook', function(req, res) {
   }
 
   function readytospell(app){
-    app.setContext("readytospell", 3);
+    app.setContext("readytospell", 1);
     app.tell("ok, start spelling");
   }
 
