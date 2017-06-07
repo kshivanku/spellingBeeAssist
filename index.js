@@ -62,7 +62,7 @@ restService.post('/hook', function(req, res) {
       body = JSON.parse(body);
       console.log(body);
       var definition = body[0].text;
-      app.tell("The meanings of the word is. " + definition);
+      app.tell("The meaning of the word is. " + definition);
     });
   }
 
@@ -83,7 +83,7 @@ restService.post('/hook', function(req, res) {
 
   function repeatWord(app){
     var word = app.getContextArgument("wordgiven", "word");
-    app.tell("The word is, " + word.value + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
+    app.tell("The word is, " + word.value);
   }
 
   function readytospell(app){
