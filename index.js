@@ -35,7 +35,7 @@ restService.post('/hook', function(req, res) {
       word.replace(/\s/g,''); //removes spaces if any in between
       var parameters = {}
       parameters["word"] = word;
-      app.setContext("wordgiven", 5, parameters);
+      app.setContext("wordgiven", 10, parameters);
       app.tell("Awesome! Lets start. Spell the word " + word);
     });
   }
@@ -85,11 +85,17 @@ restService.post('/hook', function(req, res) {
     app.tell("The word is, " + word.value);
   }
 
+  function readytospell(app){
+    app.setContext("readytospell", 3);
+    app.tell("ok, start spelling");
+  }
+
   const actionMap = new Map();
   actionMap.set('input.welcome', welcomeUser);
   actionMap.set('game.action', gameAction);
   actionMap.set('asking.detail', askingDetail);
   actionMap.set('repeat.word', repeatWord);
+  actionMap.set('ready.tospell', readytospell);
   app.handleRequest(actionMap);
 });
 
