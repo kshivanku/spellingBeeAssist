@@ -99,6 +99,7 @@ restService.post('/hook', function(req, res) {
     var wordAlpha = word.value.replace(/[\s\-]/g,''); //removes spaces if any in between
     var userAnswerAlpha = userAnswer.replace(/[\s\-]/g,'');
     if(userAnswerAlpha == wordAlpha) {
+      attempts = 0;
       app.ask("Congratulations! Your spelling is correct. Would you like to try one more word?", NOREPLY);
     }
     else {
