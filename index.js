@@ -62,7 +62,7 @@ restService.post('/hook', function(req, res) {
       body = JSON.parse(body);
       console.log(body);
       var definition = body[0].text;
-      app.tell("The meanings of the word is. " + definition + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
+      app.tell("The meanings of the word is. " + definition);
     });
   }
 
@@ -77,7 +77,7 @@ restService.post('/hook', function(req, res) {
       console.log("response body: ");
       console.log(body);
       console.log("usage: " + usage);
-      app.tell("Here's how you can use it in a sentence. " + usage + ". Say 'I am ready to spell', whenever you are ready to give your answer.");
+      app.tell("Here's how you can use it in a sentence. " + usage);
     });
   }
 
