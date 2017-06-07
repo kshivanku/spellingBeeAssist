@@ -61,7 +61,7 @@ restService.post('/hook', function(req, res) {
       body = JSON.parse(body);
       console.log(body);
       var definition = body[0].text;
-      app.tell("One of the meanings of the word is, " + definition);
+      app.tell("One of the meanings of the word is. " + definition);
     });
   }
 
@@ -76,14 +76,20 @@ restService.post('/hook', function(req, res) {
       console.log("response body: ");
       console.log(body);
       console.log("usage: " + usage);
-      app.tell("One of the usage of the word is, " + usage);
+      app.tell("One of the usage of the word is. " + usage);
     });
+  }
+
+  function repeatWord(app){
+    var word = app.getContextArgument("wordgiven", "word");
+    app.tell("The word is, " + word.value);
   }
 
   const actionMap = new Map();
   actionMap.set('input.welcome', welcomeUser);
   actionMap.set('game.action', gameAction);
   actionMap.set('asking.detail', askingDetail);
+  actionMap.set('repeat.word', repeatWord);
   app.handleRequest(actionMap);
 });
 
