@@ -17,7 +17,7 @@ restService.post('/hook', function(req, res) {
 
   function welcomeUser(app) {
     app.setContext("wakeUpGame", 2);
-    app.ask("Hi! this is spelling bee, do you want to play?", NOREPLY);
+    app.ask("Hi! this is my spelling bee, do you want to play?", NOREPLY);
   }
 
   function gameAction(app) {
@@ -114,7 +114,7 @@ restService.post('/hook', function(req, res) {
         for(var i = 0 ; i < word.value.length ; i++){
           spelling += word.value[i] + ". "
         }
-        app.ask("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value + ". Would you like to try another word?", NOREPLY);
+        app.ask("Sorry! Your spelling is still incorrect. The correct spelling is. " + spelling + word.value + ". Would you like to try another word?", NOREPLY);
       }
     }
   }
