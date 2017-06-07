@@ -97,7 +97,11 @@ restService.post('/hook', function(req, res) {
       app.tell("Congratulations! Your spelling is correct");
     }
     else {
-      app.tell("Oops! Your spelling is incorrect");
+      var spelling = "";
+      for(var i = 0 ; i < word.value.length ; i++){
+        spelling += word.value[i] + ". "
+      }
+      app.tell("Oops! Your spelling is incorrect. The correct spelling is. " + spelling + word.value);
     }
   }
 
