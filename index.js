@@ -32,7 +32,6 @@ restService.post('/hook', function(req, res) {
     }, function(err, response, body) {
       body = JSON.parse(body);
       var word = body.word;
-      word.replace(/\s/g,''); //removes spaces if any in between
       var parameters = {}
       parameters["word"] = word;
       app.setContext("wordgiven", 10, parameters);
@@ -93,7 +92,8 @@ restService.post('/hook', function(req, res) {
   function checkAnswer(app){
     var userAnswer = app.getArgument("userAnswer");
     var word = app.getContextArgument("wordgiven", "word");
-    if(userAnswer == word.value) {
+    var wordAlpha = word.value.replace(/[\s\-]/g,''); //removes spaces if any in between
+    if(userAnswer == wordAlpha) {
       app.tell("Congratulations! Your spelling is correct");
     }
     else {
